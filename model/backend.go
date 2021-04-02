@@ -1,49 +1,47 @@
 package model
 
 import (
-	"bufio"
-	"log"
+	"fmt"
 	"os"
 )
 
-type Model struct {
-	filepath string
-	// data json
+type meal struct {
+	id          int
+	title       string
+	ingredients []string
+	weblink     string
 }
-
-func (m Model) setFilepath(fpath string) error {
-	// TODO: try to access given fpath, if not a JSON or not accessible then return error
-	m.filepath = fpath
-	return nil
-}
-
-// func (m Model) Reload(fpath string) error {
-// }
 
 // creates a new active database based on the given filepath
-func NewModel(fpath string) *Model {
-	m := Model{fpath}
-	err := m.init()
-	if err != nil {
-		log.Fatal(err)
+func Init(fpath string) (*DB, error) {
+	// ensure fpath is to a JSON file
+	if len(fpath) < 6 || fpath[len(fpath)-5:] != ".JSON" {
+		return nil, fmt.Errorf("'%s' is not a JSON file", fpath)
 	}
-	return &m
-}
-
-func (m Model) init() error {
 	// if db file doesn't exist, then create it
-	file, err := os.Open(m.filepath)
+	file, err := os.Open(fpath)
 	if err != nil {
-		file, err = os.Create(m.filepath)
+		file, err = os.Create(fpath)
 		if err != nil {
-			return err
+			return nil, err
 		}
 	}
+	defer file.Close()
 
-	writer := bufio.NewWriter(file)
-	_, err = writer.WriteString("test\n")
-	if err != nil {
-		return err
-	}
-	return nil
+	m := DB{}
+	m.filepath = fpath
+	return &m, nil
 }
+
+// func (m *Model) WriteToFile() {
+// 	defer m.file.Close()
+// 	m.file.WriteString("Test!")
+// 	writer := bufio.NewWriter(m.file)
+// 	x, err := writer.WriteString("test\n")
+// 	fmt.Println(x, err)
+// 	if err != nil {
+// 		log.Fatal(err)
+// 	}
+
+// 	io.WriteString(writer, "hello?")
+// }
