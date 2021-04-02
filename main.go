@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/bturley2/meal-manager/Backend/mydb"
+	"github.com/bturley2/meal-manager/mydb"
 )
 
 func main() {
