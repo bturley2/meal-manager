@@ -13,6 +13,7 @@ func main() {
 
 	// default to index.html
 	http.HandleFunc("/", defaultHandler)
+	http.HandleFunc("/login", loginHandler)
 
 	// start the server listening on localhost port 8080
 	fmt.Println("Server listening on port 80")
@@ -22,4 +23,9 @@ func main() {
 func defaultHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("default handler invoked")
 	http.ServeFile(w, r, "dynamic/index.html")
+}
+
+func loginHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("login handler invoked")
+	http.ServeFile(w, r, "dynamic/login/login.html")
 }
