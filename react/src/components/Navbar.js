@@ -1,9 +1,21 @@
+import '../style/Navbar.css';
 import React from "react";
 
+
 class Navbar extends React.Component {
+  constructor(props) {
+    super(props);
+    // this.state = {
+    //   isOpen: true,
+    // };
+  }
+
   render() {
     return (
-      <div>This is a sidebar</div>
+      // <div style={{backgroundColor: 'yellow'}}>
+      <div class="navbar">
+        This is the sidebar.
+      </div>
     );
   }
 }
