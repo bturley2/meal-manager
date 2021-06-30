@@ -1,24 +1,27 @@
-// import logo from '../assets/logo.svg';
-import '../style/App.css';
-import Navbar from './Navbar';
-import MainPage from './MainPage';
-
 import React from 'react';
-import ReactDOM from 'react-dom';
-import Button from '@material-ui/core/Button';
+
+import MainPage from './MainPage';
+import Navbar from './Navbar';
+import Sidebar from './Sidebar';
+
+
 
 function App() {
   return (
     <div>
       <head>
+        {/* Import Roboto font */}
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+
+        {/* Scale devices for mobile */}
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width"
+        />
       </head>
 
       <body>
-        <Button variant="contained" color="primary">
-          Hello World
-        </Button>
-        <h1>Hello World!</h1>
+        <Sidebar />
         <Navbar />
         <MainPage />
       </body>

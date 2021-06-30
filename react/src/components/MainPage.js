@@ -1,17 +1,22 @@
 import React from "react";
-import '../style/MainPage.css';
+
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 
 class MainPage extends React.Component {
-  constructor(props) {
-    super(props);
+  // constructor(props) {
+  //   super(props);
     // this.state = {backgroundColor: 'blue'};
-  }
+  // }
 
   render() {
     return (
-      <div class="mainpage">
-        <h1>This is the Main Page.</h1>
-      </div>
+
+      <Paper elevation="2">
+        <Typography variant="h2">
+          This is the main page!
+        </Typography>
+      </Paper>
     );
   }
 }
