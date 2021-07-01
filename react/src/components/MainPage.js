@@ -1,7 +1,6 @@
 import React from "react";
 
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
+import Dashboard from './pages/Dashboard';
 
 class MainPage extends React.Component {
   // constructor(props) {
@@ -11,12 +10,7 @@ class MainPage extends React.Component {
 
   render() {
     return (
-
-      <Paper elevation="2">
-        <Typography variant="h2">
-          This is the main page!
-        </Typography>
-      </Paper>
+      <Dashboard />
     );
   }
 }
