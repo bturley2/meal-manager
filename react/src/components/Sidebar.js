@@ -11,7 +11,6 @@ class Sidebar extends React.Component {
     super(props);
     this.state = {
       isDrawerOpen: true,
-      drawerWidth: 200,
     };
   }
 

@@ -4,8 +4,6 @@ import MainPage from './MainPage';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
 
-
-
 function App() {
   return (
     <div>
