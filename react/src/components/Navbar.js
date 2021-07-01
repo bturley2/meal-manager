@@ -7,12 +7,9 @@ import Typography from '@material-ui/core/Typography';
 
 import MenuIcon from '@material-ui/icons/Menu';
 
-import useStyles from '../style/Styles';
-
 export default function Navbar() {
-  const classes = useStyles();
   return (
-    <AppBar className={classes.mainPage} position="static">
+    <AppBar position="static">
       <Toolbar>
 
         <IconButton edge="start">

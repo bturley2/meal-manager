@@ -2,27 +2,26 @@ import React from 'react';
 
 import MainPage from './MainPage';
 import Navbar from './Navbar';
-import Sidebar from './Sidebar';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentPage: 'dashboard',
-    };
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     currentPage: 'dashboard',
+  //   };
+  // }
 
-  renderMainPage() {
-    return <MainPage value={this.state.currentPage} />;
-  }
+  // renderMainPage() {
+  //   return <MainPage value={this.state.currentPage} />;
+  // }
 
-  swpToDashboard() {
-    this.state.currentPage = 'dashboard'
-  }
+  // swpToDashboard() {
+  //   this.state.currentPage = 'dashboard'
+  // }
 
-  swapToEnterMeal() {
-    this.state.currentPage = 'entermeal'
-  }
+  // swapToEnterMeal() {
+  //   this.state.currentPage = 'entermeal'
+  // }
 
   render () {
     return (
@@ -39,9 +38,8 @@ class App extends React.Component {
         </head>
   
         <body>
-          <Sidebar />
           <Navbar />
-          {this.renderMainPage()}
+          <MainPage />
         </body>
       </div>
     );

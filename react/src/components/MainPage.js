@@ -1,19 +1,19 @@
 import React from "react";
 
-import Dashboard from './pages/Dashboard';
-import EnterMeal from "./pages/EnterMeal";
+import MyWeekPage from './pages/MyWeekPage';
+import UploadRecipePage from "./pages/UploadRecipePage";
 
 class MainPage extends React.Component {
 
   render() {
-    switch (this.props.value) {
-      case 'dashboard':
-        return <Dashboard />;
-      case 'entermeal':
-        return <EnterMeal />;
-    }
+    // switch (this.props.value) {
+    //   case 'myweek':
+    //     return <MyWeekPage />;
+    //   case 'uploadrecipe':
+    //     return <UploadRecipePage />;
+    // }
     
-    return <Dashboard />;
+    return <MyWeekPage />;
     
   }
 }
