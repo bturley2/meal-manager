@@ -7,18 +7,12 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
 class Sidebar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isDrawerOpen: true,
-    };
-  }
 
   render() {
     return (
         <Drawer 
           variant="persistent"
-          open={this.state.isDrawerOpen}
+          open="true"
         >
           <List>
             <Divider />
