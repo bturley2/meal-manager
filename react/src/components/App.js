@@ -1,9 +1,8 @@
 import React from 'react';
 
-import MainPage from './MainPage';
 import Navbar from './Navbar';
 
-class App extends React.Component {
+export default function App() {
   // constructor(props) {
   //   super(props);
   //   this.state = {
@@ -23,27 +22,22 @@ class App extends React.Component {
   //   this.state.currentPage = 'entermeal'
   // }
 
-  render () {
-    return (
-      <div>
-        <head>
-          {/* Import Roboto font */}
-          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
-  
-          {/* Scale devices for mobile */}
-          <meta
-            name="viewport"
-            content="minimum-scale=1, initial-scale=1, width=device-width"
-          />
-        </head>
-  
-        <body>
-          <Navbar />
-          <MainPage />
-        </body>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <head>
+        {/* Import Roboto font */}
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
 
-export default App;
+        {/* Scale devices for mobile */}
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width"
+        />
+      </head>
+
+      <body>
+        <Navbar />
+      </body>
+    </div>
+  );
+}
