@@ -13,30 +13,30 @@ import Typography from '@material-ui/core/Typography';
 
 export default function Navbar() {
 
-    return (
-      <div>
-        <AppBar position="static">
-        <Toolbar>
+  return (
+    <div>
+      <AppBar position="static">
+      <Toolbar>
 
-          <FastFoodIcon />
-          <Box m={1} />
-          <Typography variant="h6">Meal Manager</Typography>
+        <FastFoodIcon />
+        <Box m={1} />
+        <Typography variant="h6">Meal Manager</Typography>
 
-          <Box m={2} />
+        <Box m={2} />
 
-          <Tabs>
-            <Tab label="My Week" />
-            <Tab label="Meal Search" />
-            <Tab label="Upload Recipe" disabled />
-          </Tabs>
+        <Tabs>
+          <Tab label="My Week" />
+          <Tab label="Meal Search" disabled />
+          <Tab label="Upload Recipe"  />
+        </Tabs>
 
 
-        </Toolbar>
-      </AppBar>
+      </Toolbar>
+    </AppBar>
 
-      <MainPage value={this.state.currentPage}/>
+    <MainPage />
 
-      </div>
-    );
+    </div>
+  );
 }
 
