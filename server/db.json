@@ -1,31 +1,34 @@
 {
+  "username": {
+    "unique-meal-name": {
+      "type":"chicken",
+      "url":"www.chicken.com",
+      "rating":4,
+      "notes":"this ones great",
+      "image":""
+    },
+    "unique-meal-name2": {
+      "type":"veggie",
+      "url":"www.veggie.com",
+      "rating":4,
+      "notes":"this one kinda sux",
+      "image":""
+    }
+  },
+
   "MarasMeals": {
     "meal1": {
       "type":"chicken",
       "url":"www.chicken.com",
       "rating":4,
-      "notes":"this ones great"
+      "notes":"this ones great",
+      "image":""
     },
     "meal2": {
       "type":"veggie",
       "url":"www.veggie.com",
       "rating":4,
       "notes":"this one kinda sux"
-    }
-  },
-
-  "BrycesMeals": {
-    "meal1": {
-      "type":"chicken",
-      "url":"www.chicken.com",
-      "rating":4,
-      "notes":""
-    },
-    "meal2": {
-      "type":"veggie",
-      "url":"www.veggie.com",
-      "rating":4,
-      "notes":""
     }
   }
 }
