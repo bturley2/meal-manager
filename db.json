@@ -1,0 +1,31 @@
+{
+  "MarasMeals": {
+    "meal1": {
+      "type":"chicken",
+      "url":"www.chicken.com",
+      "rating":4,
+      "notes":"this ones great"
+    },
+    "meal2": {
+      "type":"veggie",
+      "url":"www.veggie.com",
+      "rating":4,
+      "notes":"this one kinda sux"
+    }
+  },
+
+  "BrycesMeals": {
+    "meal1": {
+      "type":"chicken",
+      "url":"www.chicken.com",
+      "rating":4,
+      "notes":""
+    },
+    "meal2": {
+      "type":"veggie",
+      "url":"www.veggie.com",
+      "rating":4,
+      "notes":""
+    }
+  }
+}
