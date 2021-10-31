@@ -19,6 +19,8 @@ services:
       - ${SERVER_LISTEN_PORT}
     depends_on:
       - database
+    env_file:
+      - .env
     # TODO: remove once reverse-proxy is enabled
     ports:
       - '${SERVER_LISTEN_PORT}:${SERVER_LISTEN_PORT}'
@@ -39,4 +41,5 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     # re-define the port the db listens on to use what is included in .env
-    command: -p ${DATABASE_PORT} 
+    command: 
+      - -p ${DATABASE_PORT} 

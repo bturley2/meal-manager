@@ -13,6 +13,7 @@ POSTGRES_PASSWORD=usbw
 
 Run the server with the following command:
 ```
+docker-compose build
 docker-compose up
 ```
 
