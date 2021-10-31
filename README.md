@@ -1,0 +1,17 @@
+Set up a `.env` file with the following variables defined:
+```
+# ports to connect the docker containers with
+SERVER_LISTEN_PORT=8080
+DATABASE_PORT=5432
+
+# database configuration info
+POSTGRES_ROOT_PASSWORD=password
+POSTGRES_DATABASE=gardenapp
+POSTGRES_USER=user1
+POSTGRES_PASSWORD=usbw
+```
+
+Run the server with the following command:
+```
+docker-compose up
+```

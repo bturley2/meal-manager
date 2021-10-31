@@ -2,7 +2,6 @@ FROM golang:1.17
 
 ## Create workdir and add all relevant files to it
 RUN mkdir /app
-# ADD ./web-server /app
 ADD . /app
 WORKDIR /app
 
