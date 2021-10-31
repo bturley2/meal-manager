@@ -37,11 +37,15 @@ func ping(c *gin.Context) {
 }
 
 func signup(c *gin.Context) {
-
+	c.JSON(200, gin.H{
+		"response": "signed up!",
+	})
 }
 
 func login(c *gin.Context) {
-
+	c.JSON(200, gin.H{
+		"response": "logged in!",
+	})
 }
 
 // opens a connection to the database using the user info from `.env`
