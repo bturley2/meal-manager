@@ -6,7 +6,7 @@ DATABASE_PORT=5432
 
 # database configuration info
 POSTGRES_ROOT_PASSWORD=password
-POSTGRES_DATABASE=gardenapp
+POSTGRES_DATABASE=meal-manager
 POSTGRES_USER=user1
 POSTGRES_PASSWORD=usbw
 ```
@@ -14,4 +14,9 @@ POSTGRES_PASSWORD=usbw
 Run the server with the following command:
 ```
 docker-compose up
+```
+
+To remove anything that currently exists in the docker containers, use the following command:
+```
+docker-compose down --volumes
 ```

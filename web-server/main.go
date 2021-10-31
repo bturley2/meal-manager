@@ -1,13 +1,15 @@
 package main
 
 import (
+	"database/sql"
 	"fmt"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	fmt.Println("hello!")
+	initDB()
 
 	r := gin.Default()
 	r.GET("/ping", ping)
@@ -19,4 +21,14 @@ func ping(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"message": "pong",
 	})
+}
+
+func initDB() {
+	time.Sleep(3 * time.Second)
+	connStr := "user=user1 dbname=meal-manager password=usbw host=localhost sslmode=disable"
+	db, err := sql.Open("postgres", connStr)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(db)
 }

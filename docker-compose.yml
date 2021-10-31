@@ -2,6 +2,13 @@
 version: '3'
 services:
   # reverse-proxy:
+  #   image: traefik
+  #   ports:
+  #     - '${SERVER_LISTEN_PORT}:${SERVER_LISTEN_PORT}'
+  #     - '80:80'
+  #     - '443:443'
+  #   depends_on:
+  #     - web-server
 
   web-server:
     restart: always
@@ -12,18 +19,24 @@ services:
       - ${SERVER_LISTEN_PORT}
     depends_on:
       - database
+    # TODO: remove once reverse-proxy is enabled
+    ports:
+      - '${SERVER_LISTEN_PORT}:${SERVER_LISTEN_PORT}'
 
   database:
     image: postgres
     volumes:
       # mounting db file outside the container so it persists:
-      # - "./database/postgres_database:/var/lib/mysql"
+      # - "./database/postgres_database:/var/lib/postgreSQL"
       # init script to create tables:
       - "./database/create_table_statements.sql:/docker-entrypoint-initdb.d/create_table_statements.sql"
     expose:
+      # expose db port to the other containers
       - ${DATABASE_PORT}
     environment:
       POSTGRES_ROOT_PASSWORD: ${POSTGRES_ROOT_PASSWORD}
       POSTGRES_DATABASE: ${POSTGRES_DATABASE}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    # re-define the port the db listens on to use what is included in .env
+    command: -p ${DATABASE_PORT} 
