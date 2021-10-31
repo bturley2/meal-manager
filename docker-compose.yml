@@ -1,3 +1,4 @@
+# note that environment variables are automatically imported from `.env` when running `docker-compose up`
 version: '3'
 services:
   # reverse-proxy:
@@ -14,6 +15,11 @@ services:
 
   database:
     image: postgres
+    volumes:
+      # mounting db file outside the container so it persists:
+      # - "./database/postgres_database:/var/lib/mysql"
+      # init script to create tables:
+      - "./database/create_table_statements.sql:/docker-entrypoint-initdb.d/create_table_statements.sql"
     expose:
       - ${DATABASE_PORT}
     environment:
