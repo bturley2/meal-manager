@@ -13,10 +13,10 @@ import (
 )
 
 type MealInfo struct {
-	MealType string `json:"MealType" binding:"required"`
-	MealUrl  string `json:"MealUrl" binding:"required"`
-	Rating   int    `json:"Rating"`
-	Notes    string `json:"Notes"`
+	MealType string `json:"mealType" binding:"required"`
+	MealUrl  string `json:"mealUrl" binding:"required"`
+	Rating   int    `json:"rating"`
+	Notes    string `json:"notes"`
 }
 
 const (
