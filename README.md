@@ -21,3 +21,5 @@ To remove anything that currently exists in the docker containers, use the follo
 ```
 docker-compose down --volumes
 ```
+
+TODO: fix syntax error on the insert statement for the db

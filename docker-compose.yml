@@ -37,9 +37,12 @@ services:
       - ${DATABASE_PORT}
     environment:
       POSTGRES_ROOT_PASSWORD: ${POSTGRES_ROOT_PASSWORD}
-      POSTGRES_DATABASE: ${POSTGRES_DATABASE}
+      POSTGRES_DB: ${POSTGRES_DATABASE}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     # re-define the port the db listens on to use what is included in .env
-    command: 
-      - -p ${DATABASE_PORT} 
+    command: >
+      -p ${DATABASE_PORT} 
+      -c ssl=on 
+      -c ssl_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem
+      -c ssl_key_file=/etc/ssl/private/ssl-cert-snakeoil.key

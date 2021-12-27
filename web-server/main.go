@@ -23,14 +23,17 @@ const (
 	dbReconnectTime = 1 * time.Second
 )
 
+var (
+	db *sql.DB
+)
+
 func main() {
-	db := initDB()
+	db = initDB()
 	if db == nil {
 		log.Fatal("Failed to connect to the database.")
 	}
 
 	r := gin.Default()
-	r.GET("/ping", ping)
 	r.POST("/signup", signup)
 	r.POST("/login", login)
 
@@ -41,31 +44,26 @@ func main() {
 }
 
 // Adds a new meal to the database
-// This handler expects all fields to be found as JSON elements
-// in the request body
+// This handler expects all fields to be found as JSON elements in the request body
 func newMealHandler(c *gin.Context) {
-	// parse request body into
+	// parse request body into the `newMeal` struct
 	var newMeal MealInfo
 	if err := c.ShouldBindJSON(&newMeal); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	fmt.Println(newMeal)
 
 	// create new entry in database
+	insertStatement := fmt.Sprintf(`INSERT INTO Users 
+		(meal_type, url, rating, notes)
+		VALUES
+		(%v, %v, %v, %v);`, newMeal.MealType, newMeal.MealUrl, newMeal.Rating, newMeal.Notes)
+	if _, err := db.Exec(insertStatement); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
 
-	c.JSON(http.StatusOK, gin.H{
-		"MealType": newMeal.MealType,
-		"Url":      newMeal.MealUrl,
-		"Rating":   newMeal.Rating,
-		"Notes":    newMeal.Notes,
-	})
-}
-
-func ping(c *gin.Context) {
-	c.JSON(200, gin.H{
-		"message": "pong",
-	})
+	c.JSON(http.StatusOK, gin.H{})
 }
 
 func signup(c *gin.Context) {
@@ -82,19 +80,37 @@ func login(c *gin.Context) {
 
 // opens a connection to the database using the user info from `.env`
 func initDB() *sql.DB {
-	connStr := fmt.Sprintf("user=%v dbname=%v password=%v host=localhost",
+	var psqlDb *sql.DB
+	var err error
+	connStr := fmt.Sprintf("user=%v dbname=%v password=%v host=database port=%v",
 		os.Getenv("POSTGRES_USER"),
 		os.Getenv("POSTGRES_DATABASE"),
-		os.Getenv("POSTGRES_PASSWORD"))
+		os.Getenv("POSTGRES_PASSWORD"),
+		os.Getenv("DATABASE_PORT"))
+	// continuously try to open the database
 	for {
-		db, err := sql.Open("postgres", connStr)
+		psqlDb, err = sql.Open("postgres", connStr)
 		if err != nil {
-			fmt.Println("Failed to connect to the database with error: ", err)
-			fmt.Println("Will attempt to reconnect shortly.")
+			fmt.Println("Failed to open to the database with error: ", err.Error())
+			fmt.Println("Will attempt to re-open shortly.")
+			time.Sleep(dbReconnectTime)
+		} else {
+			fmt.Println("Database successfully launched.")
+			break
+		}
+	}
+	// wait for the database to respond
+	for {
+		fmt.Println("Attempting to reach to the database.")
+		err = psqlDb.Ping()
+
+		if err != nil {
+			fmt.Println("Failed to connect to the database with error: ", err.Error())
+			fmt.Println("Will attempt to re-connect shortly.")
 			time.Sleep(dbReconnectTime)
 		} else {
 			fmt.Println("Successfully connected to the database.")
-			return db
+			return psqlDb
 		}
 	}
 }
