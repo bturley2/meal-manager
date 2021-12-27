@@ -53,17 +53,37 @@ func newMealHandler(c *gin.Context) {
 		return
 	}
 
+	if err := cleanMealInfo(&newMeal); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
 	// create new entry in database
-	insertStatement := fmt.Sprintf(`INSERT INTO Users 
-		(meal_type, url, rating, notes)
-		VALUES
-		(%v, %v, %v, %v);`, newMeal.MealType, newMeal.MealUrl, newMeal.Rating, newMeal.Notes)
+	insertStatement := fmt.Sprintf(
+		`INSERT INTO Meals (meal_type, url, rating, notes)
+		VALUES (%v, %v, %v, %v);`,
+		newMeal.MealType,
+		newMeal.MealUrl,
+		newMeal.Rating,
+		newMeal.Notes)
+
+	fmt.Println(insertStatement)
 	if _, err := db.Exec(insertStatement); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
 	c.JSON(http.StatusOK, gin.H{})
+}
+
+// helper method designed to check all elements in the given values
+// and format them to be insertable into the database
+// returns error if unable to clean the given info
+func cleanMealInfo(m *MealInfo) error {
+	m.MealType = fmt.Sprintf("'%v'", m.MealType)
+	m.MealUrl = fmt.Sprintf("'%v'", m.MealUrl)
+	m.Notes = fmt.Sprintf("'%v'", m.Notes)
+	return nil
 }
 
 func signup(c *gin.Context) {
