@@ -23,3 +23,5 @@ docker-compose down --volumes
 ```
 
 TODO: Check that inserts work properly - Add routes to retrieve information
+Fix the current routes for inserts so that they use db.Exec
+Make sure that we can retrieve the information placed into the db

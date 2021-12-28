@@ -9,11 +9,11 @@ CREATE TABLE IF NOT EXISTS Users (
 
 CREATE TABLE IF NOT EXISTS Meals (
     id SERIAL,
+    title varchar(50) NOT NULL,
     meal_type mealType NOT NULL,
     url varchar(2000),
     rating INTEGER,
     notes varchar(2000),
-    image_path varchar(500),
     PRIMARY KEY(id),
     CHECK (rating>0 AND rating<=5)
 );
