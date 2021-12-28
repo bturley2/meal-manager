@@ -64,18 +64,18 @@ func mealViewerHandler(c *gin.Context) {
 	for rows.Next() {
 		var id, rating sql.NullInt32
 		var title, mealType, mealUrl, notes sql.NullString
-		// read row info in
+		// read row info into provided values
 		if err := rows.Scan(&id, &title, &mealType, &mealUrl, &rating, &notes); err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
-		// append this meal to response
+		// build and append this meal to response
 		var m MealInfo
 		if !id.Valid {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Retrieved an invalid meal."})
 			return
 		}
-		m.Id = int(rating.Int32)
+		m.Id = int(id.Int32)
 		if title.Valid {
 			m.Title = title.String
 		}
@@ -107,57 +107,13 @@ func newMealHandler(c *gin.Context) {
 		return
 	}
 
-	// if err := cleanMealInfo(&newMeal); err != nil {
-	// 	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-	// 	return
-	// }
-
-	// // create new entry in database
-	insertStatement := fmt.Sprintf(
-		`INSERT INTO Meals (title, meal_type, url, rating, notes)
-		VALUES ('%v', '%v', '%v', '%v', '%v');`,
+	// create new entry in database
+	_, err := db.Exec("INSERT INTO Meals (title, meal_type, url, rating, notes) VALUES ($1, $2, $3, $4, $5);",
 		newMeal.Title,
 		newMeal.MealType,
 		newMeal.MealUrl,
 		newMeal.Rating,
 		newMeal.Notes)
-
-	fmt.Println(insertStatement)
-	// if _, err := db.Exec(insertStatement); err != nil {
-	// 	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-	// 	return
-	// }
-
-	var title, mealType, url, notes sql.NullString
-	var rating sql.NullInt32
-	if newMeal.Title != "" {
-		title.Valid = true
-		title.String = newMeal.Title
-	}
-	if newMeal.MealType != "" {
-		mealType.Valid = true
-		mealType.String = newMeal.MealType
-	}
-	if newMeal.MealUrl != "" {
-		url.Valid = true
-		url.String = newMeal.MealUrl
-	}
-	if newMeal.Notes != "" {
-		notes.Valid = true
-		notes.String = newMeal.Notes
-	}
-	if newMeal.Rating >= 0 || newMeal.Rating <= 5 {
-		rating.Valid = true
-		rating.Int32 = int32(newMeal.Rating)
-	}
-
-	// create new entry in database
-	_, err := db.Exec("INSERT INTO Meals (title, meal_type, url, rating, notes) VALUES (?, ?, ?, ?, ?);",
-		title,
-		mealType,
-		url,
-		rating,
-		notes)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
@@ -165,17 +121,6 @@ func newMealHandler(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{})
 }
-
-// helper method designed to check all elements in the given values
-// and format them to be insertable into the database
-// returns error if unable to clean the given info
-// func cleanMealInfo(m *MealInfo) error {
-// 	m.Title = fmt.Sprintf("'%v'", m.Title)
-// 	m.MealType = fmt.Sprintf("'%v'", m.MealType)
-// 	m.MealUrl = fmt.Sprintf("'%v'", m.MealUrl)
-// 	m.Notes = fmt.Sprintf("'%v'", m.Notes)
-// 	return nil
-// }
 
 func signup(c *gin.Context) {
 	c.JSON(200, gin.H{
